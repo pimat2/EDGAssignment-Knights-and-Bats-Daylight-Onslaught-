@@ -13,7 +13,7 @@ public class MeleeController : WeaponController
 	protected override void Attack()
 	{
 		base.Attack();
-		GameObject spawnedMelee = Instantiate(weaponPrefab);
+		GameObject spawnedMelee = Instantiate(weaponData.Prefab);
 		spawnedMelee.transform.position = transform.position;
 		spawnedMelee.transform.parent = transform;
 	}
