@@ -27,6 +27,9 @@ public class EnemySpawner : MonoBehaviour
 	
 	[Header("Spawner Attributes")]
 	float spawnTimer;//timer for when to spawn the next enemy 
+	public float waveInterval; //Time interval between each wave
+	
+	
 	Transform player;
 	
     // Start is called before the first frame update
@@ -38,7 +41,12 @@ public class EnemySpawner : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+	{
+		//Check if current wave has ended and next wave should start
+		if(currentWaveCount < waves.Count && waves[currentWaveCount].spawnCount == 0)
+		{
+			StartCoroutine(BeginNextWave());
+		}
 	    spawnTimer += Time.deltaTime;
 	    //Checks if its time to spawn the next enemy
 	    if(spawnTimer >= waves[currentWaveCount].spawnInterval)
@@ -47,6 +55,20 @@ public class EnemySpawner : MonoBehaviour
 	    	SpawnEnemies();
 	    }
     }
+    
+    
+	IEnumerator BeginNextWave()
+	{
+		//Wait for 'waveinterva' seconds before checking if there are more waves to be spawned, if so increase currentWaveCount and CalculateWaveQuota
+		yield return new WaitForSeconds(waveInterval);
+		if(currentWaveCount < waves.Count -1)
+		{
+			currentWaveCount ++;
+			CalculateWaveQuota();
+		}
+	}
+    
+    
 	void CalculateWaveQuota()
 	{
 		int currentWaveQuota = 0;
