@@ -7,11 +7,16 @@ public class PlayerStats : MonoBehaviour
 	public CharacterScriptableObject characterData;
 	
 	//CurrentStats
-	float currentHealth;
-	float currentRecovery;
-	float currentMoveSpeed;
-	float currentMight;
-	float currentProjectileSpeed;
+	[HideInInspector]
+	public float currentHealth;
+	[HideInInspector]
+	public float currentRecovery;
+	[HideInInspector]
+	public float currentMoveSpeed;
+	[HideInInspector]
+	public float currentMight;
+	[HideInInspector]
+	public float currentProjectileSpeed;
 	
 	//Experience and level of the player
 	[Header("Experience/Level")]
@@ -65,6 +70,7 @@ public class PlayerStats : MonoBehaviour
 		{
 			isInvincible = false;
 		}
+		Recover();
 	}
 	
 	public void IncreaseExperience(int amount)
@@ -119,6 +125,19 @@ public class PlayerStats : MonoBehaviour
 		if(currentHealth < characterData.MaxHealth)
 		{
 			currentHealth += amount;
+			if(currentHealth > characterData.MaxHealth)
+			{
+				currentHealth = characterData.MaxHealth;
+			}
+		}
+		
+	}
+	
+	void Recover()
+	{
+		if(currentHealth < characterData.MaxHealth)
+		{
+			currentHealth += currentRecovery * Time.deltaTime;
 			if(currentHealth > characterData.MaxHealth)
 			{
 				currentHealth = characterData.MaxHealth;

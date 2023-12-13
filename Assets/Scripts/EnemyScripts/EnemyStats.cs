@@ -7,9 +7,12 @@ public class EnemyStats : MonoBehaviour
 	public EnemyScriptableObject enemyData;
 	
 	//CurrentStats
-	float currentMoveSpeed;
-	float currentHealth;
-	float currentDamage;
+	[HideInInspector]
+	public float currentMoveSpeed;
+	[HideInInspector]
+	public float currentHealth;
+	[HideInInspector]
+	public float currentDamage;
 	// Awake is called when the script instance is being loaded.
 	void Awake()
 	{
