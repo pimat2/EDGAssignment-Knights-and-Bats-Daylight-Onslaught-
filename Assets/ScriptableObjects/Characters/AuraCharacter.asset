@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0277c63d6b12474b968fa5cb31139d5, type: 3}
+  m_Name: AuraCharacter
+  m_EditorClassIdentifier: 
+  startingWeapon: {fileID: 8916672482797374518, guid: 7eaead2c44c600d4abc90ee49e48728d, type: 3}
+  maxHealth: 1000
+  recovery: 1
+  moveSpeed: 5
+  might: 0
+  projectileSpeed: 0
+  magnet: 1.6

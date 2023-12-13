@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88a720c3516c054c9807a07dba5dbd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterData: {fileID: 11400000, guid: b1f022e02ce110a478bd8c3fa1c6e731, type: 2}
+  characterData: {fileID: 0}
   currentHealth: 0
   currentRecovery: 0
   currentMoveSpeed: 0

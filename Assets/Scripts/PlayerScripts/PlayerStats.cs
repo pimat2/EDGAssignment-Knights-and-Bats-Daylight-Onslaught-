@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-	public CharacterScriptableObject characterData;
+	CharacterScriptableObject characterData;
 	
 	//CurrentStats
 	[HideInInspector]
@@ -29,6 +29,9 @@ public class PlayerStats : MonoBehaviour
 	// Awake is called when the script instance is being loaded.
 	void Awake()
 	{
+		characterData = CharacterSelector.GetData();
+		CharacterSelector.instance.DestroySingleton();
+		//Asigning Variables for different stats of the player
 		currentHealth = characterData.MaxHealth;
 		currentRecovery = characterData.Recovery;
 		currentMoveSpeed = characterData.MoveSpeed;
