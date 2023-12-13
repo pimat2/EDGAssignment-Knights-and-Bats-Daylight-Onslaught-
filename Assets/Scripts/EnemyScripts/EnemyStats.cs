@@ -46,4 +46,11 @@ public class EnemyStats : MonoBehaviour
 			player.TakeDamage(currentDamage);
 		}
 	}
+	
+	// This function is called when the MonoBehaviour will be destroyed.
+	private void OnDestroy()
+	{
+		EnemySpawner enemySpawner = FindObjectOfType<EnemySpawner>();
+		enemySpawner.OnEnemyKilled();
+	}
 }
