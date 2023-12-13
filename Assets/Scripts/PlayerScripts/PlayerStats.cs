@@ -20,6 +20,10 @@ public class PlayerStats : MonoBehaviour
 	[HideInInspector]
 	public float currentMagnet;
 	
+	//Spawned Weapon
+	public List<GameObject> spawnedWeapons;
+	
+	
 	//Experience and level of the player
 	[Header("Experience/Level")]
 	public int experience = 0;
@@ -38,6 +42,8 @@ public class PlayerStats : MonoBehaviour
 		currentMight = characterData.Might;
 		currentProjectileSpeed = characterData.ProjectileSpeed; 
 		currentMagnet = characterData.Magnet;
+		//Spawning the starting weapon of the character based on what is assigned in the scriptableobject	
+		SpawnWeapon(characterData.StartingWeapon);
 	}
 	
 	//Class for defining a level range and the corresponding experience cap increase for that range
@@ -150,5 +156,12 @@ public class PlayerStats : MonoBehaviour
 			}
 		}
 		
+	}
+	public void SpawnWeapon(GameObject weapon)
+	{
+		//Spawn the correct starting weapon of player character
+		GameObject spawnedWeapon = Instantiate(weapon, transform.position, Quaternion.identity);
+		spawnedWeapon.transform.SetParent(transform); //Sets the weapon to be a child of the player character
+		spawnedWeapons.Add(spawnedWeapon); //Adds it to the list of spawned weapons
 	}
 }

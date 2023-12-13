@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0277c63d6b12474b968fa5cb31139d5, type: 3}
   m_Name: AuraCharacter
   m_EditorClassIdentifier: 
-  startingWeapon: {fileID: 8916672482797374518, guid: 7eaead2c44c600d4abc90ee49e48728d, type: 3}
+  startingWeapon: {fileID: 6564998374589142914, guid: b730c62f199fb094d9801be8447d4a6b, type: 3}
   maxHealth: 1000
   recovery: 1
   moveSpeed: 5
