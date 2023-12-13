@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
 	public CharacterScriptableObject characterData;
-	// Start is called before the first frame update
-    
+	
 	//CurrentStats
 	float currentHealth;
 	float currentRecovery;
@@ -19,6 +18,7 @@ public class PlayerStats : MonoBehaviour
 	public int experience = 0;
 	public int level = 1;
 	public int experienceCap;
+	
 	// Awake is called when the script instance is being loaded.
 	void Awake()
 	{
@@ -28,6 +28,7 @@ public class PlayerStats : MonoBehaviour
 		currentMight = characterData.Might;
 		currentProjectileSpeed = characterData.ProjectileSpeed; 
 	}
+	
 	//Class for defining a level range and the corresponding experience cap increase for that range
 	[System.Serializable]
 	public class LevelRange
@@ -37,13 +38,33 @@ public class PlayerStats : MonoBehaviour
 		public int experienceCapIncrease;
 	}
 	
+	//Invincibility Frames
+	[Header("Invincibility Frames")]
+	public float invincibilityDuration;
+	float invincibilityTimer;
+	bool isInvincible;
+	
+	
 	public List<LevelRange> levelRanges;
 	
-	// Start is called on the frame when a script is enabled just before any of the Update methods is called the first time.
+	
 	void Start()
 	{
 		//Initialize the experience cap as the first experience cap increase
 		experienceCap = levelRanges[0].experienceCapIncrease;	
+	}
+	
+	
+	void Update()
+	{
+		if(invincibilityTimer > 0)
+		{
+			invincibilityTimer -= Time.deltaTime;
+		}
+		else if(isInvincible)
+		{
+			isInvincible = false;
+		}
 	}
 	
 	public void IncreaseExperience(int amount)
@@ -72,4 +93,24 @@ public class PlayerStats : MonoBehaviour
 		}
 	}
 	
+	public void TakeDamage(float dmg)
+	{
+		if(isInvincible == false)
+		{
+			currentHealth -= dmg;
+			
+			invincibilityTimer = invincibilityDuration;
+			isInvincible = true;
+		
+			if(currentHealth <= 0)
+			{
+				Kill();
+			}
+		}
+		
+	}
+	public void Kill()
+	{
+		Debug.Log("PLAYER IS DEAD");
+	}
 }

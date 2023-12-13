@@ -9,13 +9,13 @@ public class EnemyStats : MonoBehaviour
 	//CurrentStats
 	float currentMoveSpeed;
 	float currentHealth;
-	float Damage;
+	float currentDamage;
 	// Awake is called when the script instance is being loaded.
 	void Awake()
 	{
 		currentMoveSpeed = enemyData.MoveSpeed;
 		currentHealth = enemyData.MaxHealth;
-		Damage = enemyData.Damage;
+		currentDamage = enemyData.Damage;
 	}
 	
 	public void TakeDamage(float dmg)
@@ -30,5 +30,17 @@ public class EnemyStats : MonoBehaviour
 	public void Kill()
 	{
 		Destroy(gameObject);
+	}
+	
+	// OnCollisionStay is called once per frame for every collider/rigidbody that is touching rigidbody/collider.
+	private void  OnCollisionStay2D(Collision2D col)
+	{
+		
+		//references the player stats script when collision happens and calls the function of TakeDamage there
+		if(col.gameObject.CompareTag("Player"))
+		{
+			PlayerStats player = col.gameObject.GetComponent<PlayerStats>();
+			player.TakeDamage(currentDamage);
+		}
 	}
 }
