@@ -13,12 +13,31 @@ public class EnemyStats : MonoBehaviour
 	public float currentHealth;
 	[HideInInspector]
 	public float currentDamage;
+	
+	public float despawnDistance = 20f;
+	Transform player;
 	// Awake is called when the script instance is being loaded.
 	void Awake()
 	{
 		currentMoveSpeed = enemyData.MoveSpeed;
 		currentHealth = enemyData.MaxHealth;
 		currentDamage = enemyData.Damage;
+	}
+	
+	// Start is called on the frame when a script is enabled just before any of the Update methods is called the first time.
+	void Start()
+	{
+		player = FindObjectOfType<PlayerStats>().transform;
+		
+	}
+	
+	// Update is called every frame, if the MonoBehaviour is enabled.
+	void Update()
+	{
+		if(Vector2.Distance(transform.position, player.position) >= despawnDistance)
+		{
+			ReturnEnemy();
+		}
 	}
 	
 	public void TakeDamage(float dmg)
@@ -52,5 +71,11 @@ public class EnemyStats : MonoBehaviour
 	{
 		EnemySpawner enemySpawner = FindObjectOfType<EnemySpawner>();
 		enemySpawner.OnEnemyKilled();
+	}
+	
+	void ReturnEnemy()
+	{
+		EnemySpawner enemySpawner = FindObjectOfType<EnemySpawner>();
+		transform.position = player.position + enemySpawner.relativeSpawnPoints[Random.Range(0,enemySpawner.relativeSpawnPoints.Count)].position;
 	}
 }
