@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPotion : MonoBehaviour, iCollectible
+public class HealthPotion : Pickups, iCollectible
 {
 	public int healthToRestore;
 	
@@ -10,6 +10,5 @@ public class HealthPotion : MonoBehaviour, iCollectible
 	{
 		PlayerStats player = FindObjectOfType<PlayerStats>();
 		player.RestoreHealth(healthToRestore);
-		Destroy(gameObject);
 	}
 }

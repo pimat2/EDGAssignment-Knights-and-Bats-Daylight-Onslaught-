@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExperienceGem : MonoBehaviour, iCollectible
+public class ExperienceGem : Pickups, iCollectible
 {
 	public int experienceGranted;
 	public void Collect()
 	{
 		PlayerStats player = FindObjectOfType<PlayerStats>();
 		player.IncreaseExperience(experienceGranted);
-		Destroy(gameObject);
 	}
+	
 }
