@@ -20,31 +20,11 @@ public class PlayerStats : MonoBehaviour
 	[HideInInspector]
 	public float currentMagnet;
 	
-	//Spawned Weapon
-	public List<GameObject> spawnedWeapons;
-	
-	
 	//Experience and level of the player
 	[Header("Experience/Level")]
 	public int experience = 0;
 	public int level = 1;
 	public int experienceCap;
-	
-	// Awake is called when the script instance is being loaded.
-	void Awake()
-	{
-		characterData = CharacterSelector.GetData();
-		CharacterSelector.instance.DestroySingleton();
-		//Asigning Variables for different stats of the player
-		currentHealth = characterData.MaxHealth;
-		currentRecovery = characterData.Recovery;
-		currentMoveSpeed = characterData.MoveSpeed;
-		currentMight = characterData.Might;
-		currentProjectileSpeed = characterData.ProjectileSpeed; 
-		currentMagnet = characterData.Magnet;
-		//Spawning the starting weapon of the character based on what is assigned in the scriptableobject	
-		SpawnWeapon(characterData.StartingWeapon);
-	}
 	
 	//Class for defining a level range and the corresponding experience cap increase for that range
 	[System.Serializable]
@@ -61,17 +41,48 @@ public class PlayerStats : MonoBehaviour
 	float invincibilityTimer;
 	bool isInvincible;
 	
-	
 	public List<LevelRange> levelRanges;
 	
+	InventoryManager inventory;
+	public int weaponIndex;
+	public int passiveItemIndex;
+	
+	//For Testing Purposes
+	public GameObject weaponTest;
+	public GameObject passiveItemTest1;
+	public GameObject passiveItemTest2;
+	
+	// Awake is called when the script instance is being loaded.
+	void Awake()
+	{
+		characterData = CharacterSelector.GetData();
+		CharacterSelector.instance.DestroySingleton();
+		
+		inventory = GetComponent<InventoryManager>();
+		
+		
+		//Asigning Variables for different stats of the player
+		currentHealth = characterData.MaxHealth;
+		currentRecovery = characterData.Recovery;
+		currentMoveSpeed = characterData.MoveSpeed;
+		currentMight = characterData.Might;
+		currentProjectileSpeed = characterData.ProjectileSpeed; 
+		currentMagnet = characterData.Magnet;
+		
+		//Spawning the starting weapon of the character based on what is assigned in the scriptableobject	
+		SpawnWeapon(characterData.StartingWeapon);
+		//For testing purposes
+		SpawnWeapon(weaponTest);
+		SpawnPassiveItem(passiveItemTest1);
+		SpawnPassiveItem(passiveItemTest2);
+	}
 	
 	void Start()
 	{
 		//Initialize the experience cap as the first experience cap increase
 		experienceCap = levelRanges[0].experienceCapIncrease;	
 	}
-	
-	
+		
 	void Update()
 	{
 		if(invincibilityTimer > 0)
@@ -159,9 +170,26 @@ public class PlayerStats : MonoBehaviour
 	}
 	public void SpawnWeapon(GameObject weapon)
 	{
+		if(weaponIndex >= inventory.weaponSlots.Count - 1)
+		{
+			return;
+		}
 		//Spawn the correct starting weapon of player character
 		GameObject spawnedWeapon = Instantiate(weapon, transform.position, Quaternion.identity);
 		spawnedWeapon.transform.SetParent(transform); //Sets the weapon to be a child of the player character
-		spawnedWeapons.Add(spawnedWeapon); //Adds it to the list of spawned weapons
+		inventory.AddWeapon(weaponIndex, spawnedWeapon.GetComponent<WeaponController>());
+		weaponIndex++;
+	}
+	public void SpawnPassiveItem(GameObject passiveItem)
+	{
+		if(passiveItemIndex >= inventory.passiveItemSlots.Count - 1)
+		{
+			return;
+		}
+		//Spawn the correct starting weapon of player character
+		GameObject spawnedPassiveItem = Instantiate(passiveItem, transform.position, Quaternion.identity);
+		spawnedPassiveItem.transform.SetParent(transform); //Sets the weapon to be a child of the player character
+		inventory.AddPassiveItem(passiveItemIndex, spawnedPassiveItem.GetComponent<PassiveItem>());
+		passiveItemIndex++;
 	}
 }
