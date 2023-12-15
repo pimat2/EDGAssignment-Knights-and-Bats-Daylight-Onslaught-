@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c678338006d2c054fa220b4a48b3ff1d, type: 3}
-  m_Name: AuraWeapon
+  m_Name: KnifeWeapon
   m_EditorClassIdentifier: 
-  prefab: {fileID: 8916672482797374518, guid: 7eaead2c44c600d4abc90ee49e48728d, type: 3}
+  prefab: {fileID: 3740589436677628259, guid: e165007b5e4122e408b3b1fa6982ac12, type: 3}
   damage: 5
-  speed: 0
-  cooldownDuration: 3
-  pierce: 0
+  speed: 10
+  cooldownDuration: 2
+  pierce: 1
   level: 1
-  nextLevelPrefab: {fileID: 0}
+  nextLevelPrefab: {fileID: 8490896416586109163, guid: bd6c4348d007ba54380cda4d496c8338, type: 3}
+  icon: {fileID: -1658043661, guid: c3fa326ef6761a84999f897d805893a3, type: 3}
