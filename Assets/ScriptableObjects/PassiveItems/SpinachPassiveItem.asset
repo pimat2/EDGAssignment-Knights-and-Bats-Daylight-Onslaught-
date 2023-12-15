@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0277c63d6b12474b968fa5cb31139d5, type: 3}
-  m_Name: AuraCharacter
+  m_Script: {fileID: 11500000, guid: 3ba040427b6f2c341a4a1722c238f861, type: 3}
+  m_Name: SpinachPassiveItem
   m_EditorClassIdentifier: 
-  startingWeapon: {fileID: 6564998374589142914, guid: b730c62f199fb094d9801be8447d4a6b, type: 3}
-  maxHealth: 1000
-  recovery: 1
-  moveSpeed: 5
-  might: 1
-  projectileSpeed: 0
-  magnet: 1.6
+  multiplier: 100

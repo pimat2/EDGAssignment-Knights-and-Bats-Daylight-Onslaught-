@@ -16,6 +16,10 @@ public class DropRateManager : MonoBehaviour
 	// This function is called when the MonoBehaviour will be destroyed.
 	void OnDestroy()
 	{
+		if(!gameObject.scene.isLoaded)
+		{
+			return;
+		}
 		float randomNumber = UnityEngine.Random.Range(0f,100f);
 		List<Drops> possibleDrops = new List<Drops>();
 		
