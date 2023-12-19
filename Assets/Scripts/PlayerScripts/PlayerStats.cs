@@ -7,19 +7,123 @@ public class PlayerStats : MonoBehaviour
 	CharacterScriptableObject characterData;
 	
 	//CurrentStats
-	[HideInInspector]
-	public float currentHealth;
-	[HideInInspector]
-	public float currentRecovery;
-	[HideInInspector]
-	public float currentMoveSpeed;
-	[HideInInspector]
-	public float currentMight;
-	[HideInInspector]
-	public float currentProjectileSpeed;
-	[HideInInspector]
-	public float currentMagnet;
 	
+	float currentHealth;
+	
+	float currentRecovery;
+	
+	float currentMoveSpeed;
+	
+	float currentMight;
+	
+	float currentProjectileSpeed;
+	
+	float currentMagnet;
+
+	#region CurrentStatsProperties
+	float CurrentHealth
+	{
+		get { return currentHealth; }
+		set
+		{
+			//Checks if the value of current health has been changed
+			if(currentHealth != value)
+			{
+				currentHealth = value;
+				if(GameManager.instance != null)
+				{
+					GameManager.instance.currentHealthDisplay.text = "Health: " + currentHealth;
+				}
+				//Updates the real time value of the stat
+			}
+		}
+	}
+	public float CurrentRecovery
+	{
+		get { return currentRecovery; }
+		set
+		{
+			//Checks if the value of current recovery has been changed
+			if(currentRecovery != value)
+			{
+				currentRecovery = value;
+				if(GameManager.instance != null)
+				{
+					GameManager.instance.currentRecoveryDisplay.text = "Recovery " + currentRecovery;
+				}
+				//Updates the real time value of the stat
+			}
+		}
+	}
+	public float CurrentMoveSpeed
+	{
+		get { return currentMoveSpeed; }
+		set
+		{
+			//Checks if the value of current Move Speed has been changed
+			if(currentMoveSpeed != value)
+			{
+				currentMoveSpeed = value;
+				if(GameManager.instance != null)
+				{
+					GameManager.instance.currentMoveSpeedDisplay.text = "Move Speed: " + currentMoveSpeed;
+				}
+				//Updates the real time value of the stat
+			}
+		}
+	}
+	public float CurrentMight
+	{
+		get { return currentMight; }
+		set
+		{
+			//Checks if the value of current Might has been changed
+			if(currentMight != value)
+			{
+				currentMight = value;
+				if(GameManager.instance != null)
+				{
+					GameManager.instance.currentMightDisplay.text = "Might: " + currentMight;
+				}
+				//Updates the real time value of the stat
+			}
+		}
+	}
+	public float CurrentProjectileSpeed
+	{
+		get { return currentProjectileSpeed; }
+		set
+		{
+			//Checks if the value of current Projectile Speed has been changed
+			if(currentProjectileSpeed != value)
+			{
+				currentProjectileSpeed = value;
+				if(GameManager.instance != null)
+				{
+					GameManager.instance.currentProjectileSpeedDisplay.text = "Projectile Speed: " + currentProjectileSpeed;
+				}
+				//Updates the real time value of the stat
+			}
+		}
+	}
+	public float CurrentMagnet
+	{
+		get { return currentMagnet; }
+		set
+		{
+			//Checks if the value of current Magnet has been changed
+			if(currentMagnet != value)
+			{
+				currentMagnet = value;
+				if(GameManager.instance != null)
+				{
+					GameManager.instance.currentMagnetDisplay.text = "Magnet: " + currentMagnet;
+				}
+				//Updates the real time value of the stat
+			}
+		}
+	}
+	#endregion
 	//Experience and level of the player
 	[Header("Experience/Level")]
 	public int experience = 0;
@@ -62,12 +166,12 @@ public class PlayerStats : MonoBehaviour
 		
 		
 		//Asigning Variables for different stats of the player
-		currentHealth = characterData.MaxHealth;
-		currentRecovery = characterData.Recovery;
-		currentMoveSpeed = characterData.MoveSpeed;
-		currentMight = characterData.Might;
-		currentProjectileSpeed = characterData.ProjectileSpeed; 
-		currentMagnet = characterData.Magnet;
+		CurrentHealth = characterData.MaxHealth;
+		CurrentRecovery = characterData.Recovery;
+		CurrentMoveSpeed = characterData.MoveSpeed;
+		CurrentMight = characterData.Might;
+		CurrentProjectileSpeed = characterData.ProjectileSpeed; 
+		CurrentMagnet = characterData.Magnet;
 		
 		//Spawning the starting weapon of the character based on what is assigned in the scriptableobject	
 		SpawnWeapon(characterData.StartingWeapon);
@@ -81,6 +185,15 @@ public class PlayerStats : MonoBehaviour
 	{
 		//Initialize the experience cap as the first experience cap increase
 		experienceCap = levelRanges[0].experienceCapIncrease;	
+		//Sets the current stats display
+		GameManager.instance.currentHealthDisplay.text = "Health: " + currentHealth;
+		GameManager.instance.currentRecoveryDisplay.text = "Recovery " + currentRecovery;
+		GameManager.instance.currentMoveSpeedDisplay.text = "Move Speed: " + currentMoveSpeed;
+		GameManager.instance.currentMightDisplay.text = "Might: " + currentMight;
+		GameManager.instance.currentProjectileSpeedDisplay.text = "Projectile Speed: " + currentProjectileSpeed;
+		GameManager.instance.currentMagnetDisplay.text = "Magnet: " + currentMagnet;
+		
+
 	}
 		
 	void Update()
@@ -126,12 +239,12 @@ public class PlayerStats : MonoBehaviour
 	{
 		if(isInvincible == false)
 		{
-			currentHealth -= dmg;
+			CurrentHealth -= dmg;
 			
 			invincibilityTimer = invincibilityDuration;
 			isInvincible = true;
 		
-			if(currentHealth <= 0)
+			if(CurrentHealth <= 0)
 			{
 				Kill();
 			}
@@ -145,12 +258,12 @@ public class PlayerStats : MonoBehaviour
 	
 	public void RestoreHealth(float amount)
 	{
-		if(currentHealth < characterData.MaxHealth)
+		if(CurrentHealth < characterData.MaxHealth)
 		{
-			currentHealth += amount;
-			if(currentHealth > characterData.MaxHealth)
+			CurrentHealth += amount;
+			if(CurrentHealth > characterData.MaxHealth)
 			{
-				currentHealth = characterData.MaxHealth;
+				CurrentHealth = characterData.MaxHealth;
 			}
 		}
 		
@@ -158,12 +271,12 @@ public class PlayerStats : MonoBehaviour
 	
 	void Recover()
 	{
-		if(currentHealth < characterData.MaxHealth)
+		if(CurrentHealth < characterData.MaxHealth)
 		{
-			currentHealth += currentRecovery * Time.deltaTime;
-			if(currentHealth > characterData.MaxHealth)
+			CurrentHealth += CurrentRecovery * Time.deltaTime;
+			if(CurrentHealth > characterData.MaxHealth)
 			{
-				currentHealth = characterData.MaxHealth;
+				CurrentHealth = characterData.MaxHealth;
 			}
 		}
 		

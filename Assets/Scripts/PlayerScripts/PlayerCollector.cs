@@ -18,7 +18,7 @@ public class PlayerCollector : MonoBehaviour
 	// Update is called every frame, if the MonoBehaviour is enabled.
 	void Update()
 	{
-		playerCollector.radius = player.currentMagnet;	
+		playerCollector.radius = player.CurrentMagnet;	
 	}
 	// Sent when another object enters a trigger collider attached to this object (2D physics only).
 	void OnTriggerEnter2D(Collider2D col)
