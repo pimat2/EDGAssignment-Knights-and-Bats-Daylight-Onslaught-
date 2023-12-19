@@ -20,10 +20,10 @@ public class GameManager : MonoBehaviour
     //Store the prveious state of the game
     public GameState previousState;
 
-    [Header("UI")]
+    [Header("Screens")]
     public GameObject pauseScreen;
     public GameObject resultsScreen;
-
+    [Header("TMPro objects for live display of stats")]
     //Current stats display
     public TextMeshProUGUI currentHealthDisplay;
     public TextMeshProUGUI currentRecoveryDisplay;
@@ -31,6 +31,12 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI currentMightDisplay;
     public TextMeshProUGUI currentProjectileSpeedDisplay;
     public TextMeshProUGUI currentMagnetDisplay;
+    [Header("Results Screen Display")]
+    public Image chosenCharachterImage;
+    public TextMeshProUGUI chosenCharacterName;
+    public TextMeshProUGUI levelReachedDisplay;
+    public List<Image> chosenWeaponsUI = new List<Image>(6);
+    public List<Image> chosenPassiveItemsUI = new List<Image>(6);
     //Check if the game is over
     public bool isGameOver = false;
     void Awake() 
@@ -67,7 +73,6 @@ public class GameManager : MonoBehaviour
                 {
                     isGameOver = true;
                     Time.timeScale = 0f;
-                    resultsScreen.SetActive(true);
                     Debug.Log("GAME IS OVER");
                     DisplayResults();
                 }
@@ -133,6 +138,51 @@ public class GameManager : MonoBehaviour
     }
     void DisplayResults()
     {
+        resultsScreen.SetActive(true);
+    }
+    public void AssignChosenCharacterUI(CharacterScriptableObject chosenCharacterData)
+    {
+        chosenCharachterImage.sprite = chosenCharacterData.Icon;
+        chosenCharacterName.text = chosenCharacterData.Name;
+    }
+    public void AssignLevelReached(int levelReachedData)
+    {
+        levelReachedDisplay.text = levelReachedData.ToString();
+    }
+    public void AssignChosenWeaponsAndPassiveItemsUI(List<Image> chosenWeaponsData, List<Image> chosenPassiveItemsData)
+    {
+        if(chosenWeaponsData.Count != chosenWeaponsUI.Count || chosenPassiveItemsData.Count != chosenPassiveItemsUI.Count)
+        {
+            Debug.LogWarning("Chosen weapons and passive items data list have different lengths");
+            return;
+        }
+        //Assign choseen weapons data to chosen weapon UI
+        for (int i = 0; i < chosenWeaponsUI.Count; i++)
+        {
+            //Checks to make sure that the sprite of the corresponding weapon in weaponData is not null
+            if(chosenWeaponsData[i].sprite)
+            {
+                chosenWeaponsUI[i].enabled = true;
+                chosenWeaponsUI[i].sprite = chosenWeaponsData[i].sprite;
+            }
+            else
+            {
+                chosenWeaponsUI[i].enabled = false;
+            }
+        }
+        for (int i = 0; i < chosenPassiveItemsUI.Count; i++)
+        {
+            //Checks to make sure that the sprite of the corresponding passive item in passiveItemData is not null
+            if(chosenPassiveItemsData[i].sprite)
+            {
+                chosenPassiveItemsUI[i].enabled = true;
+                chosenPassiveItemsUI[i].sprite = chosenPassiveItemsData[i].sprite;
+            }
+            else
+            {
+                chosenPassiveItemsUI[i].enabled = false;
+            }
+        }
 
     }
 }
