@@ -35,8 +35,14 @@ public class GameManager : MonoBehaviour
     public Image chosenCharachterImage;
     public TextMeshProUGUI chosenCharacterName;
     public TextMeshProUGUI levelReachedDisplay;
+    public TextMeshProUGUI timeSurvivedDisplay;
     public List<Image> chosenWeaponsUI = new List<Image>(6);
     public List<Image> chosenPassiveItemsUI = new List<Image>(6);
+    [Header("Stopwatch")]
+    public float timeLimit; //time limit in seconds
+    float stopwatchTime; //current time elapsed
+    public TextMeshProUGUI stopwatchDisplay;
+
     //Check if the game is over
     public bool isGameOver = false;
     void Awake() 
@@ -62,6 +68,7 @@ public class GameManager : MonoBehaviour
             case GameState.Gameplay:
                 // Code for gameplay state
                 CheckForPauseAndResume();
+                UpdateStopWatch();
                 break;
             case GameState.Pause:
                 // Code for Pause state 
@@ -133,6 +140,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        timeSurvivedDisplay.text = stopwatchDisplay.text;
         ChangeState(GameState.GameOver);
 
     }
@@ -183,6 +191,25 @@ public class GameManager : MonoBehaviour
                 chosenPassiveItemsUI[i].enabled = false;
             }
         }
+
+    }
+    void UpdateStopWatch()
+    {
+        stopwatchTime += Time.deltaTime;
+        UpdateStopWatchDisplay();
+        if(stopwatchTime >= timeLimit)
+        {
+            GameOver();
+        }
+    }
+
+    void UpdateStopWatchDisplay()
+    {
+        //calculate elapsed time and convert it into minutes and seconds
+        int minutes = Mathf.FloorToInt(stopwatchTime / 60);
+        int seconds = Mathf.FloorToInt(stopwatchTime % 60);
+        //update stopwatch text
+        stopwatchDisplay.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
     }
 }
