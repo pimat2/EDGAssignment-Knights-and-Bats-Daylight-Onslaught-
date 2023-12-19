@@ -254,6 +254,10 @@ public class PlayerStats : MonoBehaviour
 	public void Kill()
 	{
 		Debug.Log("PLAYER IS DEAD");
+		if(!GameManager.instance.isGameOver)
+		{
+			GameManager.instance.GameOver();
+		}
 	}
 	
 	public void RestoreHealth(float amount)

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: KnifeCharacter
   m_EditorClassIdentifier: 
   startingWeapon: {fileID: 8490896416586109163, guid: 2012cc4a1d945b747a67036d170127f6, type: 3}
-  maxHealth: 1000
+  maxHealth: 10
   recovery: 1
   moveSpeed: 5
   might: 1
