@@ -48,6 +48,9 @@ public class GameManager : MonoBehaviour
     //Check if the game is over
     public bool isGameOver = false;
     public bool choosingUpgrade = false;
+
+    //Reference to the player's game object
+    public GameObject playerObject;
     void Awake() 
     {
         
@@ -230,6 +233,7 @@ public class GameManager : MonoBehaviour
     public void StartLevelUp()
     {
         ChangeState(GameState.LevelUp);
+        playerObject.SendMessage("RemoveAndApplyUpgrades");
     }
     public void EndLevelUp()
     {
