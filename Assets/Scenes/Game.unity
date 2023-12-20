@@ -2354,7 +2354,7 @@ MonoBehaviour:
   levelRanges:
   - startLevel: 1
     endLevel: 3
-    experienceCapIncrease: 100
+    experienceCapIncrease: 50
   - startLevel: 4
     endLevel: 6
     experienceCapIncrease: 150
@@ -2415,14 +2415,18 @@ MonoBehaviour:
   - {fileID: 4025004}
   - {fileID: 692297214}
   weaponUpgradeOptions:
-  - initialWeapon: {fileID: 8490896416586109163, guid: 2012cc4a1d945b747a67036d170127f6, type: 3}
+  - weaponUpgradeIndex: 0
+    initialWeapon: {fileID: 8490896416586109163, guid: 2012cc4a1d945b747a67036d170127f6, type: 3}
     weaponData: {fileID: 11400000, guid: 04bd4b4906089ec448271acb41593edc, type: 2}
-  - initialWeapon: {fileID: 6564998374589142914, guid: b730c62f199fb094d9801be8447d4a6b, type: 3}
+  - weaponUpgradeIndex: 1
+    initialWeapon: {fileID: 6564998374589142914, guid: b730c62f199fb094d9801be8447d4a6b, type: 3}
     weaponData: {fileID: 11400000, guid: d09068c17bdde4743a720b2956306cd6, type: 2}
   passiveItemUpgradeOptions:
-  - initialPassiveItem: {fileID: 6825357409287799813, guid: a8efbe52a25701b4991da328b2eadaff, type: 3}
+  - passiveItemUpgradeIndex: 0
+    initialPassiveItem: {fileID: 6825357409287799813, guid: a8efbe52a25701b4991da328b2eadaff, type: 3}
     PassiveItemData: {fileID: 11400000, guid: 0d44771ac9a123e408c01bc03d826d61, type: 2}
-  - initialPassiveItem: {fileID: 3447401177529627580, guid: 5f3d74e886f25994f98a314572fe6745, type: 3}
+  - passiveItemUpgradeIndex: 1
+    initialPassiveItem: {fileID: 3447401177529627580, guid: 5f3d74e886f25994f98a314572fe6745, type: 3}
     PassiveItemData: {fileID: 11400000, guid: 639d7533ceefaac4eb43c15f09cc77e3, type: 2}
   upgradeOptions:
   - upgradeNameDisplay: {fileID: 2101859528}
