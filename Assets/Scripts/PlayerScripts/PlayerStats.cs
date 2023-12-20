@@ -175,10 +175,11 @@ public class PlayerStats : MonoBehaviour
 		
 		//Spawning the starting weapon of the character based on what is assigned in the scriptableobject	
 		SpawnWeapon(characterData.StartingWeapon);
+		
 		//For testing purposes
-		SpawnWeapon(weaponTest);
+		//SpawnWeapon(weaponTest);
 		SpawnPassiveItem(passiveItemTest1);
-		SpawnPassiveItem(passiveItemTest2);
+		//SpawnPassiveItem(passiveItemTest2);
 	}
 	
 	void Start()

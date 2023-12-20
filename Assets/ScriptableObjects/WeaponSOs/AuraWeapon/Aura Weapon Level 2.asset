@@ -19,4 +19,6 @@ MonoBehaviour:
   pierce: 0
   level: 2
   nextLevelPrefab: {fileID: 0}
+  name: 'AuraWeapon Level 2 '
+  description: Cooldown is halved
   icon: {fileID: -1352512425, guid: c3fa326ef6761a84999f897d805893a3, type: 3}

@@ -19,4 +19,6 @@ MonoBehaviour:
   pierce: 1
   level: 2
   nextLevelPrefab: {fileID: 0}
+  name: Knife Level 2
+  description: Speed is up by 5
   icon: {fileID: -1658043661, guid: c3fa326ef6761a84999f897d805893a3, type: 3}
