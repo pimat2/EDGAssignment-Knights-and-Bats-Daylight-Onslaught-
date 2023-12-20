@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour
     {
         Gameplay,
         Pause,
-        GameOver
+        GameOver,
+        LevelUp
     }
 
     //Stores the current active game state
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
     [Header("Screens")]
     public GameObject pauseScreen;
     public GameObject resultsScreen;
+    public GameObject levelUpScreen;
     [Header("TMPro objects for live display of stats")]
     //Current stats display
     public TextMeshProUGUI currentHealthDisplay;
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     //Check if the game is over
     public bool isGameOver = false;
+    public bool choosingUpgrade = false;
     void Awake() 
     {
         
@@ -84,10 +87,20 @@ public class GameManager : MonoBehaviour
                     DisplayResults();
                 }
                 break;
+            case GameState.LevelUp:
+                if(!choosingUpgrade)
+                {
+                    choosingUpgrade = true;
+                    Time.timeScale = 0f;
+                    Debug.Log("Upgrades should appear");
+                    levelUpScreen.SetActive(true);
+                }
+                break;
 
             default:
                 Debug.LogWarning("State does not exist");
                 break;
+            
         }
     }
 
@@ -136,6 +149,7 @@ public class GameManager : MonoBehaviour
     {
         pauseScreen.SetActive(false);
         resultsScreen.SetActive(false);
+        levelUpScreen.SetActive(false);
     }
 
     public void GameOver()
@@ -211,5 +225,17 @@ public class GameManager : MonoBehaviour
         //update stopwatch text
         stopwatchDisplay.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
+    }
+
+    public void StartLevelUp()
+    {
+        ChangeState(GameState.LevelUp);
+    }
+    public void EndLevelUp()
+    {
+        choosingUpgrade = false;
+        Time.timeScale = 1f;
+        levelUpScreen.SetActive(false);
+        ChangeState(GameState.Gameplay);
     }
 }
