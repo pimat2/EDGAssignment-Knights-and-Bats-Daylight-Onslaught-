@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 8cf05738e8c5ac043bd86a0b6229f109, type: 3}
   name: Pavel Kolev
   startingWeapon: {fileID: 6564998374589142914, guid: b730c62f199fb094d9801be8447d4a6b, type: 3}
-  maxHealth: 10
+  maxHealth: 500
   recovery: 1
   moveSpeed: 5
   might: 1

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -155,6 +157,12 @@ public class PlayerStats : MonoBehaviour
 	public GameObject weaponTest;
 	public GameObject passiveItemTest1;
 	public GameObject passiveItemTest2;
+
+	[Header("UI")]
+	public Image healthBar;
+	public Image expBar;
+	public TextMeshProUGUI experienceLevelText;
+	
 	
 	// Awake is called when the script instance is being loaded.
 	void Awake()
@@ -195,8 +203,10 @@ public class PlayerStats : MonoBehaviour
 		GameManager.instance.currentMagnetDisplay.text = "Magnet: " + currentMagnet;
 
 		GameManager.instance.AssignChosenCharacterUI(characterData);
-		
 
+		UpdateHealthBar();
+		UpdateExpBar();
+		UpdateLevelText();
 	}
 		
 	void Update()
@@ -214,7 +224,8 @@ public class PlayerStats : MonoBehaviour
 	
 	public void IncreaseExperience(int amount)
 	{
-		experience =+ amount;
+		experience = experience + amount;
+		UpdateExpBar();
 		LevelUpChecker();
 	}
 	
@@ -236,7 +247,10 @@ public class PlayerStats : MonoBehaviour
 			}
 			experienceCap += experienceCapIncrease;
 
+			UpdateLevelText();
+
 			GameManager.instance.StartLevelUp();
+
 		}
 	}
 	
@@ -253,6 +267,7 @@ public class PlayerStats : MonoBehaviour
 			{
 				Kill();
 			}
+			UpdateHealthBar();
 		}
 		
 	}
@@ -315,5 +330,20 @@ public class PlayerStats : MonoBehaviour
 		spawnedPassiveItem.transform.SetParent(transform); //Sets the weapon to be a child of the player character
 		inventory.AddPassiveItem(passiveItemIndex, spawnedPassiveItem.GetComponent<PassiveItem>());
 		passiveItemIndex++;
+	}
+
+	void UpdateHealthBar()
+	{
+		healthBar.fillAmount = currentHealth / characterData.MaxHealth;
+	}
+	void UpdateExpBar()
+	{
+		//Update exp bar fill amount
+		expBar.fillAmount = (float)experience / (float)experienceCap;
+	}
+	void UpdateLevelText()
+	{
+		//Update level text
+		experienceLevelText.text = "LV" + level.ToString();
 	}
 }
