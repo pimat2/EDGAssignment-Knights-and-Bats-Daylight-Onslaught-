@@ -18,6 +18,11 @@ public class GameManager : MonoBehaviour
 
     //Stores the current active game state
     public GameState currentState;
+    [Header("Damage Text Settings")]
+    public Canvas damageTextCanvas;
+    public float textFontSize = 20;
+    public TextMeshProUGUI textFont;
+    public Camera referenceCamera;
     //Store the prveious state of the game
     public GameState previousState;
 
@@ -104,6 +109,46 @@ public class GameManager : MonoBehaviour
                 Debug.LogWarning("State does not exist");
                 break;
             
+        }
+    }
+
+    public static void GenerateFloatingText(string text, Transform target, float duration = 1f, float speed = 1f)
+    {
+        //If canvas for floating text is not set, return
+        if(!instance.damageTextCanvas) return;
+        //Find a camera that can be used to convert world position to a screen position
+        if(!instance.referenceCamera) instance.referenceCamera = Camera.main;
+
+        instance.StartCoroutine(instance.GenerateFloatingTextCoroutine(text, target, duration, speed));
+    }
+
+    IEnumerator GenerateFloatingTextCoroutine(string text, Transform target, float duration = 1f, float speed = 50f)
+    {
+        //Start generating the floating text
+        GameObject textObj = new GameObject("Damage Floating Text");
+        RectTransform rect = textObj.AddComponent<RectTransform>();
+        TextMeshProUGUI tmPro = textObj.AddComponent<TextMeshProUGUI>();
+        tmPro.text = text;
+        tmPro.horizontalAlignment = HorizontalAlignmentOptions.Center;
+        tmPro.verticalAlignment = VerticalAlignmentOptions.Middle;
+        tmPro.fontSize = textFontSize;
+        rect.position = referenceCamera.WorldToScreenPoint(target.position);
+
+        //Makes sure floating text object is destroyed after the duration finishes
+        Destroy(textObj, duration);
+        //Parent the generated text object to a canvas
+        textObj.transform.SetParent(instance.damageTextCanvas.transform);
+        //Pan the text upwards and fade it away over ime
+        WaitForEndOfFrame w = new WaitForEndOfFrame();
+        float t = 0;
+        float yOffset = 0;
+        while(t < duration)
+        {
+            yield return w;
+            t += Time.deltaTime;
+            tmPro.color = new Color(tmPro.color.r, tmPro.color.g, tmPro.color.b, 1-t / duration);
+            yOffset += speed * Time.deltaTime;
+            rect.position = referenceCamera.WorldToScreenPoint(target.position + new Vector3(0, yOffset));
         }
     }
 

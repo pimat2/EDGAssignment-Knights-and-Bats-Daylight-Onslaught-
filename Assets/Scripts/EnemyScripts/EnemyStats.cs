@@ -55,6 +55,11 @@ public class EnemyStats : MonoBehaviour
 	{
 		currentHealth -= dmg;
 		StartCoroutine(DamageFlash());
+		//Create the text popup when eney takes damage
+		if(dmg > 0)
+		{
+			GameManager.GenerateFloatingText(Mathf.FloorToInt(dmg).ToString(), transform);
+		}
 		//Apply knockback if its not zero
 		if(knockbackForce > 0)
 		{
