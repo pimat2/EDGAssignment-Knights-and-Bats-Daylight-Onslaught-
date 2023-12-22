@@ -2073,7 +2073,7 @@ RectTransform:
   m_GameObject: {fileID: 442025973}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1387107063}
@@ -2348,6 +2348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a88a720c3516c054c9807a07dba5dbd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageEffect: {fileID: 1375551210647552778, guid: 96015f164e8fa394ba585106c7f0ee54, type: 3}
   experience: 0
   level: 1
   experienceCap: 0
@@ -3214,7 +3215,7 @@ RectTransform:
   m_GameObject: {fileID: 578947226}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 275371342}
@@ -8086,8 +8087,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -99.3}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 85, y: -115}
+  m_SizeDelta: {x: 170, y: 130}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1608882705
 MonoBehaviour:
@@ -8109,7 +8110,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 32, y: 32}
+  m_CellSize: {x: 46, y: 46}
   m_Spacing: {x: 5, y: 5}
   m_Constraint: 2
   m_ConstraintCount: 2
@@ -8519,9 +8520,57 @@ MonoBehaviour:
   - waveName: Wave 1
     enemyGroups:
     - enemyName: Bat
+      enemyCount: 3
+      spawnCount: 0
+      enemyPrefab: {fileID: 2498042011257990087, guid: 24208a71ba48f0a4b83b126efb0dd74d, type: 3}
+    waveQuota: 0
+    spawnInterval: 1
+    spawnCount: 0
+  - waveName: Wave 2
+    enemyGroups:
+    - enemyName: Bat
       enemyCount: 5
       spawnCount: 0
       enemyPrefab: {fileID: 2498042011257990087, guid: 24208a71ba48f0a4b83b126efb0dd74d, type: 3}
+    waveQuota: 0
+    spawnInterval: 1
+    spawnCount: 0
+  - waveName: Wave 3
+    enemyGroups:
+    - enemyName: Bat
+      enemyCount: 3
+      spawnCount: 0
+      enemyPrefab: {fileID: 2498042011257990087, guid: 24208a71ba48f0a4b83b126efb0dd74d, type: 3}
+    - enemyName: Red Bat
+      enemyCount: 1
+      spawnCount: 0
+      enemyPrefab: {fileID: 2498042011257990087, guid: 8afefc7149b76044992c122c99529470, type: 3}
+    waveQuota: 0
+    spawnInterval: 1
+    spawnCount: 0
+  - waveName: Wave 4
+    enemyGroups:
+    - enemyName: Bat
+      enemyCount: 5
+      spawnCount: 0
+      enemyPrefab: {fileID: 2498042011257990087, guid: 24208a71ba48f0a4b83b126efb0dd74d, type: 3}
+    - enemyName: Bat
+      enemyCount: 3
+      spawnCount: 0
+      enemyPrefab: {fileID: 2498042011257990087, guid: 8afefc7149b76044992c122c99529470, type: 3}
+    waveQuota: 0
+    spawnInterval: 1
+    spawnCount: 0
+  - waveName: Wave 5
+    enemyGroups:
+    - enemyName: Bat
+      enemyCount: 5
+      spawnCount: 0
+      enemyPrefab: {fileID: 2498042011257990087, guid: 24208a71ba48f0a4b83b126efb0dd74d, type: 3}
+    - enemyName: Bat
+      enemyCount: 5
+      spawnCount: 0
+      enemyPrefab: {fileID: 2498042011257990087, guid: 8afefc7149b76044992c122c99529470, type: 3}
     waveQuota: 0
     spawnInterval: 1
     spawnCount: 0
@@ -8530,6 +8579,7 @@ MonoBehaviour:
   maxEnemiesAllowed: 4
   maxEnemiesReached: 0
   waveInterval: 3
+  isWaveActive: 0
   relativeSpawnPoints:
   - {fileID: 809028021}
   - {fileID: 1678797364}
@@ -9664,8 +9714,8 @@ RectTransform:
   m_Children:
   - {fileID: 440933903}
   - {fileID: 1608882704}
-  - {fileID: 1926757187}
   - {fileID: 1794911601}
+  - {fileID: 1926757187}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

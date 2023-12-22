@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class EnemyStats : MonoBehaviour
 {
 	public EnemyScriptableObject enemyData;
@@ -16,6 +17,14 @@ public class EnemyStats : MonoBehaviour
 	
 	public float despawnDistance = 20f;
 	Transform player;
+
+	[Header("Damage Feedback")]
+	public Color damageColor = new Color(1, 0, 0, 1);//Color of the damage flash
+	public float damageFlashDuration = 0.2f;//How long the flash should last
+	public float deathFadeTime = 0.6f;//Time for enemy to fade away
+	Color originalColor;
+	SpriteRenderer sr;
+	EnemyMovement movement;
 	// Awake is called when the script instance is being loaded.
 	void Awake()
 	{
@@ -28,7 +37,9 @@ public class EnemyStats : MonoBehaviour
 	void Start()
 	{
 		player = FindObjectOfType<PlayerStats>().transform;
-		
+		sr = GetComponent<SpriteRenderer>();
+		originalColor = sr.color;
+		movement = GetComponent<EnemyMovement>();
 	}
 	
 	// Update is called every frame, if the MonoBehaviour is enabled.
@@ -40,17 +51,48 @@ public class EnemyStats : MonoBehaviour
 		}
 	}
 	
-	public void TakeDamage(float dmg)
+	public void TakeDamage(float dmg, Vector2 sourcePosition, float knockbackForce = 5f, float knockbackDuration = 0.2f)
 	{
 		currentHealth -= dmg;
-		
+		StartCoroutine(DamageFlash());
+		//Apply knockback if its not zero
+		if(knockbackForce > 0)
+		{
+			//Gets the direction of knockback
+			Vector2 dir = (Vector2)transform.position - sourcePosition;
+			movement.Knockback(dir.normalized * knockbackForce, knockbackDuration);
+		}
+		//Kills enemy if health is less than zero
 		if(currentHealth <= 0)
 		{
 			Kill();
 		}
 	}
+	IEnumerator DamageFlash()
+	{
+		sr.color = damageColor; 
+		yield return new WaitForSeconds(damageFlashDuration);
+		sr.color = originalColor;
+	}
 	public void Kill()
 	{
+		StartCoroutine(KillFade());
+	}
+	IEnumerator KillFade()
+	{
+		WaitForEndOfFrame w = new WaitForEndOfFrame();
+		float t = 0, 
+		origAlpha = sr.color.a;
+		//While loop that fires every frame reducing the opacity of the sprite
+		while(t < deathFadeTime)
+		{
+			yield return w;
+			t += Time.deltaTime;
+
+			//set the color for this frame
+			sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, (1-t / deathFadeTime) * origAlpha);
+		}
+
 		Destroy(gameObject);
 	}
 	

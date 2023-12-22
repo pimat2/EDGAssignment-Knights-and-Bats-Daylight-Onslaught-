@@ -21,6 +21,8 @@ public class PlayerStats : MonoBehaviour
 	float currentProjectileSpeed;
 	
 	float currentMagnet;
+	
+	public ParticleSystem damageEffect;
 
 	#region CurrentStatsProperties
 	float CurrentHealth
@@ -259,6 +261,8 @@ public class PlayerStats : MonoBehaviour
 		if(isInvincible == false)
 		{
 			CurrentHealth -= dmg;
+
+			if(damageEffect) Instantiate(damageEffect, transform.position, Quaternion.identity);
 			
 			invincibilityTimer = invincibilityDuration;
 			isInvincible = true;
