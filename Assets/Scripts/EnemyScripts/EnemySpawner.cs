@@ -33,6 +33,7 @@ public class EnemySpawner : MonoBehaviour
 	public int maxEnemiesAllowed; //Maximum number of enemies allowed on the map at once
 	public bool maxEnemiesReached = false;
 	public float waveInterval; //Time interval between each wave
+	public bool isWaveActive;
 	[Header("Spawn Positions")]
 	public List<Transform> relativeSpawnPoints;//A list to store all the relative spawn points of enemies
 	
@@ -50,8 +51,9 @@ public class EnemySpawner : MonoBehaviour
     void Update()
 	{
 		//Check if current wave has ended and next wave should start
-		if(currentWaveCount < waves.Count && waves[currentWaveCount].spawnCount == 0)
+		if(currentWaveCount < waves.Count && waves[currentWaveCount].spawnCount == 0 && !isWaveActive)
 		{
+			isWaveActive = true;
 			StartCoroutine(BeginNextWave());
 		}
 	    spawnTimer += Time.deltaTime;
@@ -70,6 +72,7 @@ public class EnemySpawner : MonoBehaviour
 		yield return new WaitForSeconds(waveInterval);
 		if(currentWaveCount < waves.Count -1)
 		{
+			isWaveActive = false; 
 			currentWaveCount ++;
 			CalculateWaveQuota();
 		}
@@ -104,31 +107,30 @@ public class EnemySpawner : MonoBehaviour
 				//Check if the minimum number of enemies of this type have been spawned
 				if(enemyGroup.spawnCount < enemyGroup.enemyCount)
 				{
-					//Stops the spawning of enemies if enemiesAlive is more than the max number allowed
-					if(enemiesAlive >= maxEnemiesAllowed)
-					{
-						maxEnemiesReached = true;
-						return;
-					}
-					
 					//Spawn the enemy at a random position close to the player
 					Instantiate(enemyGroup.enemyPrefab, player.position + relativeSpawnPoints[Random.Range(0,relativeSpawnPoints.Count)].position, Quaternion.identity);
 					
 					enemyGroup.spawnCount++;
 					waves[currentWaveCount].spawnCount++;
 					enemiesAlive++;
+					//Stops the spawning of enemies if enemiesAlive is more than the max number allowed
+					if(enemiesAlive >= maxEnemiesAllowed)
+					{
+						maxEnemiesReached = true;
+						return;
+					}
 				}
 			}
-		}
-		//Resets the bool if enemiesAlive falls belowe the max number of enemies allowed
-		if(enemiesAlive < maxEnemiesAllowed)
-		{
-			maxEnemiesReached = false;
 		}
 	}
 	
 	public void OnEnemyKilled()
 	{
 		enemiesAlive--;
+		//Resets the bool if enemiesAlive falls belowe the max number of enemies allowed
+		if(enemiesAlive < maxEnemiesAllowed)
+		{
+			maxEnemiesReached = false;
+		}
 	}
 }
