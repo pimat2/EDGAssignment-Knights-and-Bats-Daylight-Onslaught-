@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pickups : MonoBehaviour
+public class Pickups : MonoBehaviour, iCollectible
 {
-	protected void OnTriggerEnter2D(Collider2D col)
+	protected bool hasBeenCollected;
+
+    public virtual void Collect()
+    {
+		hasBeenCollected = true;
+    }
+
+    protected void OnTriggerEnter2D(Collider2D col)
 	{
 		if(col.CompareTag("Player"))
 		{
