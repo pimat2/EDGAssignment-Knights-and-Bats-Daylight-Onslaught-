@@ -156,14 +156,16 @@ public class PlayerStats : MonoBehaviour
 	public int passiveItemIndex;
 	
 	//For Testing Purposes
-	public GameObject weaponTest;
-	public GameObject passiveItemTest1;
-	public GameObject passiveItemTest2;
+	//public GameObject weaponTest;
+	//public GameObject passiveItemTest1;
+	//public GameObject passiveItemTest2;
 
 	[Header("UI")]
 	public Image healthBar;
 	public Image expBar;
 	public TextMeshProUGUI experienceLevelText;
+
+
 	
 	
 	// Awake is called when the script instance is being loaded.
@@ -188,7 +190,7 @@ public class PlayerStats : MonoBehaviour
 		
 		//For testing purposes
 		//SpawnWeapon(weaponTest);
-		SpawnPassiveItem(passiveItemTest1);
+		//SpawnPassiveItem(passiveItemTest1);
 		//SpawnPassiveItem(passiveItemTest2);
 	}
 	
@@ -290,7 +292,7 @@ public class PlayerStats : MonoBehaviour
 	{
 		if(CurrentHealth < characterData.MaxHealth)
 		{
-			CurrentHealth += amount;
+			CurrentHealth = currentHealth + amount;
 			if(CurrentHealth > characterData.MaxHealth)
 			{
 				CurrentHealth = characterData.MaxHealth;

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0277c63d6b12474b968fa5cb31139d5, type: 3}
   m_Name: AuraCharacter
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: 8cf05738e8c5ac043bd86a0b6229f109, type: 3}
-  name: Pavel Kolev
+  icon: {fileID: 1565106135, guid: 31e0d60680c42fa45ac210283d7b1f2c, type: 3}
+  name: Aura Character
   startingWeapon: {fileID: 6564998374589142914, guid: b730c62f199fb094d9801be8447d4a6b, type: 3}
   maxHealth: 500
   recovery: 1
